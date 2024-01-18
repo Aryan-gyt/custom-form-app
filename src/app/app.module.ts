@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 
 import { AppComponent } from './app.component';
-import { CustomInputComponent } from './custom-input/custom-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormUtils } from './form-utils.service';
+import { GenericFormElementComponent } from './generic-form-element/generic-form-element.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomInputComponent
+    GenericFormElementComponent
   ],
   imports: [
     BrowserModule,

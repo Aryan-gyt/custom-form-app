@@ -1,0 +1,7 @@
+    <label style="margin-right: 10px;">{{ label }}:</label>
+    <ng-container [ngSwitch]="type">
+      <input *ngSwitchCase="'text'" type="text" [value]="value" (input)="onInput($event)" (blur)="onBlur()" />
+      <input *ngSwitchCase="'checkbox'" type="checkbox" [checked]="value" (change)="onChange($event.target.checked)" (blur)="onTouch()" />
+      <!-- Add more cases for other types as needed -->
+    </ng-container>
+  

@@ -1,23 +1,22 @@
-// src/app/custom-input/custom-input.component.ts
+// src/app/generic-form-element/generic-form-element.component.ts
 import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormUtils } from '../form-utils.service';
 
 @Component({
-  selector: 'app-custom-input',
-  templateUrl: './custom-input.component.html',
+  selector: 'app-generic-form-element',
+  templateUrl: './generic-form-element.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomInputComponent),
+      useExisting: forwardRef(() => GenericFormElementComponent),
       multi: true,
     },
   ],
 })
-export class CustomInputComponent implements ControlValueAccessor {
+export class GenericFormElementComponent implements ControlValueAccessor {
   @Input() label: string = '';
-  message  : string;
-
+  @Input() type: string = 'text';
   value: any;
 
   constructor(private formUtils: FormUtils) {}
@@ -27,7 +26,6 @@ export class CustomInputComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.value = value;
-    this.onChange(value);
   }
 
   registerOnChange(fn: any): void {
@@ -38,15 +36,18 @@ export class CustomInputComponent implements ControlValueAccessor {
     this.onTouch = fn;
   }
 
+  onInput(event: any) {
+    this.value = event.target.value;
+    this.onChange(this.value);
+  }
+
   onBlur() {
     if (this.formUtils.validateInput(this.value)) {
-      this.message = 'Success';
+      // Additional logic if validation succeeds
     } else {
       // Handle validation failure
-      this.message = '';
     }
 
     this.onTouch();
   }
 }
-
